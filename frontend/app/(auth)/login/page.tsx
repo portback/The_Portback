@@ -71,10 +71,6 @@ const Login = () => {
         <AuthCtaLinks
           linksArray={[
             {
-              name: "Dont have an account? Register",
-              href: "/register",
-            },
-            {
               name: "Forgot Password",
               href: "/forgot_password",
             },

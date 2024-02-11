@@ -80,14 +80,7 @@ const Register = () => {
         />
         <div className="mt-[2rem] flex flex-col gap-8">
         <CtaButton name="Register" action={handleSubmit} />
-             <AuthCtaLinks
-          linksArray={[
-            {
-              name: "Already have an account? Login",
-              href: "/login",
-            },
-          ]}
-        />
+         
         </div>
      
       </div>

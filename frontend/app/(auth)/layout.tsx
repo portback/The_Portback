@@ -10,8 +10,9 @@ import AuthToggle from "@/components/AuthToggle";
 
 export const metadata: Metadata = {
   title: "login to portback",
-  description: "",
-}; 
+  description:
+    "Unlock your creative potential with seamless access to your personalized portfolio hub. Effortlessly manage and showcase your work in one centralized platform. Join now to streamline your portfolio experience!",
+};
 
 const irish = Irish_Grover({
   weight: "400",

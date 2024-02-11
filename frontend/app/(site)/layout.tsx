@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Irish_Grover } from "next/font/google";
 import "../globals.css";
-import Topbar from "@/components/Topbar";
 import Sidebar from "@/components/Sidebar";
-import themeStore from "@/stores/themeStore";
-import DarkProvider from "@/common/DarkProvider";
+
 
 const irish = Irish_Grover({
   weight: "400",
@@ -22,18 +20,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
-      <body className={`relative ${irish.className}}`}>
+      <body className={` ${irish.className}}`}>
         {" "}
-        <Topbar />
-        <Sidebar />
-        <DarkProvider color="bg-[#232323]">
-          <div className="relative min-h-[60vh] w-full md:w-[80vw] left-[0px] md:left-[17vw] top-[10vh]">
-            {children}
+        <main className="flex  w-full ">
+          <Sidebar />
+          <div className="bg-rded-400 flex-1">
+            {children}   
           </div>
-        </DarkProvider>
+        </main>
       </body>
     </html>
   );
