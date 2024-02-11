@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { Separator } from "@/components/ui/separator";
 
 const Login = () => {
   const router = useRouter();
@@ -38,6 +39,7 @@ const Login = () => {
     <div className="w-[90%] ">
       <div className="   flex flex-col py-3 rounded-lg  gap-1 text-white">
         <h2 className="font-bold text-2xl font-sans">Welcome Back</h2>
+
         <AuthFields
           name="email"
           onChange={handleChange}
@@ -57,15 +59,15 @@ const Login = () => {
               placeholder="Enter your password"
             />
           </div>
-          <div className="">
-            <p>Other Options</p>
-            
-          </div>
           <div className="basis-1/4">
             <CtaButton name="Lets go" action={handleSubmit} />
           </div>
         </div>
 
+        <div className="mt-[3rem] flex items-center gap-3">
+          <p className="font-sans text-muted-foreground">Other Options</p>
+          <Separator className="bg-muted-foreground flex-1"  />
+        </div>
         <AuthCtaLinks
           linksArray={[
             {

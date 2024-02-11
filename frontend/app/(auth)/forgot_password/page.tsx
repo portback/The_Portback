@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import CtaButton from "@/components/CtaButton";
 import AuthFields from "@/components/authFields";
 import { forgot_password } from "@/requests/authRequest";
@@ -32,9 +32,9 @@ const Forgot = () => {
   });
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="bg-[#FFFCFC44] shadow-xl min-h-[70vh] w-[100%] md:w-[50%] xl:w-[40%] flex flex-col items-center py-3 rounded-lg px-6 gap-2 text-white">
-        <h2 className="font-bold text-2xl ">Welcome Back</h2>
+    <div className="w-[90%] ">
+      <div className="   flex flex-col py-3 rounded-lg  gap-1 text-white">
+        <h2 className="font-bold text-2xl ">Forgot Password</h2>
         <AuthFields
           name="email"
           onChange={handleChange}
@@ -43,11 +43,11 @@ const Forgot = () => {
           title="Email "
           placeholder="Enter your email"
         />
-      
+
         <CtaButton name="Request Otp" action={handleSubmit} />
-    
       </div>
-    </div>)
+    </div>
+  );
 };
 
 export default Forgot;

@@ -15,7 +15,7 @@ const AuthCtaLinks: FC<CtaLinksI> = ({ linksArray }) => {
     <div className="w-full grid grid-cols-2 space-x-4">
       {linksArray.map((item, i) => (
         <Link key={i} href={item.href}>
-          <p className="font-bold text-wrap font-sans text-lg text-white">
+          <p className="font-bold text-wrap font-sans text-lg text-primary">
             {item.name}
           </p>
         </Link>

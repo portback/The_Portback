@@ -34,8 +34,8 @@ const page = () => {
   });
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="bg-[#FFFCFC44] shadow-xl min-h-[70vh] w-[100%] md:w-[50%] xl:w-[40%] flex flex-col items-center py-3 rounded-lg px-6 gap-2 text-white">
+    <div className="w-[90%] ">
+      <div className="   flex flex-col py-3 rounded-lg  gap-1 text-white">
         <h2 className="font-bold text-2xl ">Reset Password</h2>
         <AuthFields
           name="otp"
@@ -61,7 +61,9 @@ const page = () => {
           title="new Password "
           placeholder="Enter your password"
         />
-        <CtaButton name="Request Otp" action={handleSubmit} />
+        <div className="mt-[2rem]">
+          <CtaButton name="Reset Password" action={handleSubmit} />
+        </div>
       </div>
     </div>
   );

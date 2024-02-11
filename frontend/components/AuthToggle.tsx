@@ -16,7 +16,7 @@ const AuthToggle = () => {
           pahtname === "/login"
             ? "bg-[#212529] shadow-md shadow-[#9feeed40]"
             : "bg-[#343A40]"
-        } w-[140px] py-2 px-2 flex items-center gap-2 text-[#ADB5BD] justify-center`}
+        } min-w-[140px] py-2 px-2 flex items-center gap-2 text-[#ADB5BD] justify-center`}
         href={"/login"}
       >
         <p>Login</p>
@@ -27,7 +27,7 @@ const AuthToggle = () => {
             pahtname === "/register"
               ? "bg-[#212529] shadow-md shadow-[#9feeed40]"
               : "bg-[#343A40]"
-          } w-[140px] py-2 px-2 flex items-center gap-2 text-[#ADB5BD] justify-center`}
+          } min-w-[140px] py-2 px-2 flex items-center gap-2 text-[#ADB5BD] justify-center`}
         href={"/register"}
       >
         <p>Create Acoount</p>

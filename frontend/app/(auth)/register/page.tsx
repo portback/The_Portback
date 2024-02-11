@@ -39,9 +39,9 @@ const Register = () => {
   });
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="bg-[#FFFCFC44] shadow-xl min-h-[70vh] w-full md:w-[50%] xl:w-[30%] flex flex-col items-center py-3 rounded-lg px-6  text-white">
-        <h2 className="font-bold text-2xl ">Create Your Account </h2>
+    <div className="w-[90%] ">
+      <div className="   flex flex-col py-3 rounded-lg  gap-1 text-white">
+        <h2 className="font-bold text-2xl ">Nice to meet you </h2>
         <div className="grid grid-cols-1 w-full md:space-x-2 ">
           <AuthFields
             name="name"
@@ -78,8 +78,9 @@ const Register = () => {
           title="Confirm Password "
           placeholder="Re-Enter your password"
         />
+        <div className="mt-[2rem] flex flex-col gap-8">
         <CtaButton name="Register" action={handleSubmit} />
-        <AuthCtaLinks
+             <AuthCtaLinks
           linksArray={[
             {
               name: "Already have an account? Login",
@@ -87,6 +88,8 @@ const Register = () => {
             },
           ]}
         />
+        </div>
+     
       </div>
     </div>
   );
