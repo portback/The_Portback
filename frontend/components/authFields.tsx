@@ -20,13 +20,10 @@ const AuthFields: FC<AuthFieldsI> = ({
   errors,
 }) => {
   return (
-    <div className="w-full flex flex-col gap-2 py-2">
-      <p className="font-sans text-xl font-bold capitalize text-white">
-        {title}
-      </p>
+    <div className="w-full flex flex-col ">
       <input
         type="text"
-        className="w-full bg-[#D9D9D977] border-none outline-none rounded-lg py-2 px-3"
+        className="w-full bg-[#343A40] border-[#1C2541] border-[1px] text-[#ADB5BD] outline-none rounded-lg py-2 px-3"
         placeholder={placeholder}
         name={name}
         value={value}
