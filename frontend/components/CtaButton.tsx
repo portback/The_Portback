@@ -1,12 +1,12 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, HTMLAttributes } from "react";
 
 interface CTAI {
   name: String;
-  action: () => void;
+  action?: () => void;
 }
 
-const CtaButton: FC<CTAI> = ({ name, action }) => {
+const CtaButton: FC<CTAI > = ({ name, action , ...props }) => {
   return (
     <button
       onClick={action}

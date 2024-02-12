@@ -2,21 +2,19 @@
 import { sidebarlist } from "@/constant/sidebar-links";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import { usePathname } from "next/navigation";
 import { Separator } from "./ui/separator";
+import authStore from "@/stores/authStore";
+import CtaButton from "./CtaButton";
 
 const Sidebar = ({ params }: any) => {
   const pathname = usePathname();
-
-
-  useEffect(() => {
-    
-  }, []);
+  const isLogged = authStore((state) => state.isLoggedin);
 
   return (
     <div
-      className={`sticky w-[15vw] top-0 left-0 h-screen  bg-[#343A40] z-10  shadow-lg  py-[1rem]  md:flex flex-col  hidden `}
+      className={` custom-scroll overflow-auto sticky w-[15vw] top-0 left-0 h-screen  bg-[#343A40] z-10  shadow-lg  py-[1rem]  md:flex flex-col  hidden `}
     >
       <div className="flex items-center gap-3 px-3">
         <div className="relative w-[40px] h-[40px]">
@@ -56,6 +54,27 @@ const Sidebar = ({ params }: any) => {
 
         <div className="mt-[1rem]">
           <Separator className="bg-muted-foreground" />
+        </div>
+
+        <div>
+          {!isLogged ? (
+            <div>loggedIN</div>
+          ) : (
+            <div className="px-3 flex flex-col gap-4 ">
+              <Link
+                href={"/login"}
+                className=" text-center w-full bg-[#5BC0BE] border-[1px] border-[#1C2541]   text-[#fff] font-bold py-2 px-3 rounded-md "
+              >
+                Login{" "}
+              </Link>
+              <Link
+                href={"/register"}
+                className="w-full text-center bg-[#5BC0BE] border-[1px] border-[#1C2541]   text-[#fff] font-bold py-2 px-3 rounded-md "
+              >
+                Create Account{" "}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

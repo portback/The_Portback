@@ -1,6 +1,12 @@
 import { create } from "zustand";
 
-const authStore = create((set) => ({
+const authStore = create<{
+  user:any,
+  isLoggedin:boolean,
+  initializeWindow:() => void,
+  setUser: (value :any) => void,
+  setIsLoggedIn: (value : boolean) => void,
+}>((set) => ({
   user: null,
   isLoggedin: false,
   initializeWindow: () => {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Irish_Grover } from "next/font/google";
 import "../globals.css";
 import Sidebar from "@/components/Sidebar";
-
+import Initializer from "@/components/Initializer";
 
 const irish = Irish_Grover({
   weight: "400",
@@ -24,11 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={` ${irish.className}}`}>
         {" "}
+        <Initializer />
         <main className="flex  w-full ">
           <Sidebar />
-          <div className="bg-rded-400 flex-1">
-            {children}   
-          </div>
+          <div className="bg-rded-400 flex-1">{children}</div>
         </main>
       </body>
     </html>
