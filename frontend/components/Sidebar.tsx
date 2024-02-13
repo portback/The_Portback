@@ -27,6 +27,7 @@ const Sidebar = ({ params }: any) => {
         <div className="flex flex-col gap-[.8rem] mt-[2rem] ">
           {sidebarlist.map((item, i) => (
             <Link
+            key={i}
               href={item.href}
               className={`${
                 pathname === item.href ? "bg-[#6FFFE9]" : ""

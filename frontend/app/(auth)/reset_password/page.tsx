@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
 
-const page = () => {
+const ResetPage = () => {
   const router = useRouter();
 
   const onSubmit = async (values: any) => {
@@ -69,4 +69,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ResetPage;
