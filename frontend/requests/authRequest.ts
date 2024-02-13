@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseurl = "http://localhost:5000/api/v1/auth/";
+const baseurl = "https://portfolio-hub-server.onrender.com/api/v1/auth/";
 
 export const loginUser = async (data: { email: string; password: string }) => {
   const raw = JSON.stringify(data);
