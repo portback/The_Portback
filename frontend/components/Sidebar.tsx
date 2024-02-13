@@ -6,7 +6,6 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { Separator } from "./ui/separator";
 import authStore from "@/stores/authStore";
-import CtaButton from "./CtaButton";
 
 const Sidebar = ({ params }: any) => {
   const pathname = usePathname();
@@ -14,7 +13,7 @@ const Sidebar = ({ params }: any) => {
 
   return (
     <div
-      className={` custom-scroll overflow-auto sticky w-[15vw] top-0 left-0 h-screen  bg-[#343A40] z-10  shadow-lg  py-[1rem]  md:flex flex-col  hidden `}
+      className={` custom-scroll overflow-auto sticky w-[17vw] top-0 left-0 h-screen  bg-[#343A40] z-10  shadow-lg  py-[1rem]  md:flex flex-col  hidden `}
     >
       <div className="flex items-center gap-3 px-3">
         <div className="relative w-[40px] h-[40px]">
@@ -58,7 +57,7 @@ const Sidebar = ({ params }: any) => {
         </div>
 
         <div>
-          {!isLogged ? (
+          {isLogged ? (
             <div>loggedIN</div>
           ) : (
             <div className="px-3 flex flex-col gap-4 ">

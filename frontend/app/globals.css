@@ -76,7 +76,7 @@
 }
 
 .custom-scroll::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
   background-color: white;
  
 }

@@ -17,6 +17,7 @@ const Register = () => {
     delete values.confirm_password;
 
     try {
+      toast('Registring user')
       const response = await createUser(values);
       if (response) {
         toast.success("Signup Successful", { theme: "colored" });

@@ -15,6 +15,7 @@ const Login = () => {
 
   const onSubmit = async (values: any) => {
     try {
+      toast('loging youin please wait')
       const response = await loginUser(values);
       if (response) {
         toast("Login Successful", { theme: "colored" });
