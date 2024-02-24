@@ -10,6 +10,7 @@ import authStore from "@/stores/authStore";
 const Sidebar = ({ params }: any) => {
   const pathname = usePathname();
   const isLogged = authStore((state) => state.isLoggedin);
+  const user = authStore((state ) => state.user)
 
   return (
     <div
@@ -26,7 +27,7 @@ const Sidebar = ({ params }: any) => {
         <div className="flex flex-col gap-[.8rem] mt-[2rem] ">
           {sidebarlist.map((item, i) => (
             <Link
-            key={i}
+              key={i}
               href={item.href}
               className={`${
                 pathname === item.href ? "bg-[#6FFFE9]" : ""
@@ -58,7 +59,18 @@ const Sidebar = ({ params }: any) => {
 
         <div>
           {isLogged ? (
-            <div>loggedIN</div>
+            <div className="px-3 py-2">
+              <div className="w-full flex items-center gap-3 ">
+                <div className="relative w-[50px] h-[50px]">
+                  <Image className="object-fit cover" src={'/avatar.png'} alt="" fill />
+                </div>
+                <div>
+                  <h1 className="text-white font-bold">{user.name} </h1>
+                  <p className="text-white">{user.email}</p>
+
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="px-3 flex flex-col gap-4 ">
               <Link

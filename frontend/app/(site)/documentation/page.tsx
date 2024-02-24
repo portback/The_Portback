@@ -1,12 +1,11 @@
-import Image from "next/image";
-import React from "react";
+import React from 'react'
 
-const Documentation = () => {
+const page = () => {
   return (
-    <div className="flex flex-col gap-6">
-    
+    <div>
+      
     </div>
-  );
-};
+  )
+}
 
-export default Documentation;
+export default page
