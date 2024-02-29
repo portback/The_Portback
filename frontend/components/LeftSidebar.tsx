@@ -15,7 +15,7 @@ const LeftSidebar = () => {
         <p className="text-main-light">Contacts</p>
         <div className="flex flex-col gap-4">
           {rightSidebarcontacts.map((contact, key) => (
-            <div className="flex items-center gap-3 justify-between">
+            <div key={key} className="flex items-center gap-3 justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-[30px] h-[30px] relative">
                   <Image src={contact.imgurl} alt="contact-img" fill />
