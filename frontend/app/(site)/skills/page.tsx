@@ -10,9 +10,7 @@ const SkillsPage = () => {
       <div className="flex w-[70%] px-4 items-center justify-between ">
         <div>add skills</div>
         <div className="px-3 py-2 rounded-md bg-[#6FFFE9] min-w-[300px]">
-          {" "}
-          <CldUpload />
-          forgot something{" "}
+     
         </div>
       </div>
     </div>
