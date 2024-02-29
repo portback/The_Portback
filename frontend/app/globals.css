@@ -76,10 +76,16 @@
 }
 
 .custom-scroll::-webkit-scrollbar {
-  width: 3px;
+  width: 1px;
   background-color: white;
  
 }
-.custom-scroll::-webkit-scrollbar-thumb{
-  background-color: aquamarine;
+
+
+body::-webkit-scrollbar{
+  width: 7px;
+  @apply bg-main-light;
+
 }
+
+

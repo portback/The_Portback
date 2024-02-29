@@ -1,37 +1,25 @@
-import Image from "next/image";
 import React from "react";
-import DarkModeToggle from "./darkModeToggle";
+import TopbarSearch from "./TopbarSearch";
 import Link from "next/link";
-
-const user = null;
+import { MdOutlineMailOutline } from "react-icons/md";
+import { FiBell } from "react-icons/fi";
+import UserProfileDropdown from "./UserProfileDropdown";
 
 const Topbar = () => {
   return (
-    <div
-      className={`shadow-lg px-[1rem] py-1 flex items-center justify-between fixed w-full z-20`}
-    >
-      <div className="flex gap-2 items-center">
-        <div className="w-[40px] h-[40px] relative">
-          <Image src={"/logo.png"} alt="logo" fill />
-        </div>
-        <p>PortBack</p>
-      </div>
-
-      <div className="flex gap-4 items-center">
-        {!user && (
-          <Link
-            href="/register"
-            className="bg-[#27B9C2] px-3 py-1 rounded-lg text-white font-medium font-sans"
-          >
-            Register
-          </Link>
-        )}
-        {!user && (
-          <Link href="/login" className="text-[#27B9C2] ">
-            Sign-in
-          </Link>
-        )}
-        <DarkModeToggle />
+    <div className="z-10 flex items-center justify-between w-full sticky top-0 px-3 py-3 bg-sidebar-bg  border-b-[1px] border-sidebar-border h-[7.27vh]">
+      <TopbarSearch />
+      <div className="flex items-center gap-6">
+        {/* icon */}
+        <Link href={'/messages'}>
+        <MdOutlineMailOutline fontSize={23}  className='text-main-light' />
+        </Link>
+        {/* icon */}
+        <Link href={'/notifications'}>
+        <FiBell fontSize={23}  className='text-main-light' />
+        </Link>
+        {/* user profile */}
+        <UserProfileDropdown />
       </div>
     </div>
   );

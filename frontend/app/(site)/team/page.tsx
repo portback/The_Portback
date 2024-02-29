@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Documentation = () => {
+const TeamPage = () => {
   return (
     <div>
-      
+      teams
     </div>
   )
 }
 
-export default Documentation
+export default TeamPage

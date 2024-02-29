@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Documentation = () => {
+const NotificationsPage = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Documentation = () => {
   )
 }
 
-export default Documentation
+export default NotificationsPage
