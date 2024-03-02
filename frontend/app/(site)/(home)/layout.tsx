@@ -2,6 +2,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import CreatePost from "@/components/CreatePost";
 
 export default function HomeLayout({
   children,
@@ -31,8 +32,7 @@ export default function HomeLayout({
           Following
         </Link>
       </div>
-
-      <div className="bg-sidebar-bg py-3 px-2 text-main-light">write something for the community</div>
+      <CreatePost />
       {children}
     </div>
   );
