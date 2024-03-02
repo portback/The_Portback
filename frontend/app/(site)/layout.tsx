@@ -32,10 +32,10 @@ export default function RootLayout({
             <Sidebar />
           </div>
           <div className="flex flex-col flex-1 ">
-           <Topbar />
+            <Topbar />
             <div className="flex h-full ">
-              <div className="flex-1 min-h-[200vh] ">{children}</div>
-           <LeftSidebar />
+              <div className="flex-1 min-h-[200vh]">{children}</div>
+              <LeftSidebar />
             </div>
           </div>
         </main>
