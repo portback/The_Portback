@@ -5,12 +5,9 @@ import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
 import { Separator } from "./ui/separator";
-import authStore from "@/stores/authStore";
 
 const Sidebar = ({ params }: any) => {
   const pathname = usePathname();
-  const isLogged = authStore((state) => state.isLoggedin);
-  const user = authStore((state) => state.user);
 
   return (
     <div
@@ -31,9 +28,9 @@ const Sidebar = ({ params }: any) => {
             <Link
               href={item.href}
               key={i}
-              className="flex items-center gap-4 text-main-light"
+              className={`${pathname == item.href ? 'bg-[#1E2231] text-white' : 'text-main-light bg-transparent'} flex items-center gap-4 px-2 py-2 rounded-md `}
             >
-              <item.Icon fontSize={22} />
+              <item.Icon  fontSize={22} />
               <p className="text-base">{item.title}</p>
             </Link>
           ))}

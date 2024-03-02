@@ -9,7 +9,10 @@ const UserProfileDropdown = () => {
   const userdetails = authStore((state) => state.user);
   return (
     <div className="flex-1 ml-4">
-      <Link href={"/userprofile"} className="flex items-center gap-4">
+      <Link
+        href={`/userprofile/${userdetails?._id}`}
+        className="flex items-center gap-4"
+      >
         <p className="text-main-light capitalize ">{userdetails?.name}</p>
         <div className="w-[30px] h-[30px] relative">
           <Image

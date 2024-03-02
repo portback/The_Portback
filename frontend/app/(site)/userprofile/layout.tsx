@@ -9,8 +9,10 @@ export const metadata: Metadata = {
 
 export default function UserProfileLayout({
   children,
+
 }: {
   children: React.ReactNode;
+  params: { id: string };
 }) {
   return (
     <div className=" flex flex-col  px-3 py-2  h-full gap-6">
