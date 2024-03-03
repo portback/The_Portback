@@ -48,7 +48,14 @@ const HomeHeader = () => {
               alt="avatar"
             />
           </div>
-          <p className="text-white text-lg font-bold">{user && user.name}</p>
+          <div className="flex flex-col gap-3">
+            <p className="text-white text-lg font-bold">{user && user.name}</p>
+            {!isuserProfile && (
+              <div className="px-4 py-1 text-center font-bold cursor-pointer rounded-full bg-white text-black">
+                Follow
+              </div>
+            )}
+          </div>
         </div>
 
         {isuserProfile

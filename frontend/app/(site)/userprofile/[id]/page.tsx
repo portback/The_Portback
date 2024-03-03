@@ -1,3 +1,4 @@
+import CreatePost from "@/components/CreatePost";
 import ProfileIntroCard from "@/components/ProfileIntroCard";
 import Image from "next/image";
 import React from "react";
@@ -18,11 +19,11 @@ const UserProfilePage = () => {
             />
           </div>
           <div className="px-2 py-2 flex flex-col ">
-            <p className="text-white capitalize font-bold text-base">Portback User</p>
+            <p className="text-white capitalize font-bold text-base">
+              Portback User
+            </p>
             <p className="font-medium capitalize">
-              since <span className="text-main-blue">
-                16th Aug 2023
-              </span>
+              since <span className="text-main-blue">16th Aug 2023</span>
             </p>
           </div>
         </div>
@@ -31,7 +32,10 @@ const UserProfilePage = () => {
         </div>
       </div>
 
-      <div className="flex-1 ">{/* main */}</div>
+      <div className="flex-1 py-3">
+        {/* main */}
+        <CreatePost />
+      </div>
     </div>
   );
 };
