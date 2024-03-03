@@ -34,7 +34,11 @@ const CreatePost = () => {
         </div>
         <Input
           className="border-none bg-transparent outline-none"
-          placeholder="Write something for the community"
+          placeholder={
+            postType != "Status"
+              ? "Add Caption To Post"
+              : "Write something for the community"
+          }
         />
       </div>
       <div className="py-2 flex flex-col">
