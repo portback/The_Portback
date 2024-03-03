@@ -16,8 +16,8 @@ const UserProfileDropdown = () => {
         <p className="text-main-light capitalize ">{userdetails?.name}</p>
         <div className="w-[30px] h-[30px] relative">
           <Image
-            className="object-cover"
-            src={"/avatar.png"}
+            className="object-cover rounded-full object-top"
+            src={"/avatar.jpeg"}
             fill
             alt="avatar"
           />

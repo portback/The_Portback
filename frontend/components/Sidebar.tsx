@@ -23,7 +23,7 @@ const Sidebar = ({ params }: any) => {
       </div>
       <div className="flex flex-col justify-between h-full">
         {/* nav routes for left side bar */}
-        <div className="mt-6 px-3 flex flex-col gap-3">
+        <div className="mt-6 px-3 flex flex-col gap-1">
           {sidebarlist.map((item, i) => (
             <Link
               href={item.href}

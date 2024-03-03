@@ -59,6 +59,8 @@ const config = {
         main: {
           bg: "#1E2231",
           light: "#5F6175",
+          green: "#93F720",
+          blue: "#1AA0FF",
         },
         components: {
           bg: "#191D2E",

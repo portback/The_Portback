@@ -32,18 +32,18 @@ const HomeHeader = () => {
     <div className="bg-components-bg h-[22%] w-full flex flex-col">
       <div className="relative w-full h-[84%]">
         <Image
-          src={"/default_cover.png"}
-          className="object-cover"
+          src={"/pb.jpeg"}
+          className="object-cover  object-center"
           alt="cover_image"
           fill
         />
       </div>
       <div className="flex-1 flex items-center relative justify-center gap-4">
         <div className="absolute left-14 bottom-4 flex items-center gap-5">
-          <div className="w-[120px] h-[120px] rounded-full relative">
+          <div className="w-[120px] h-[120px]  rounded-full relative bg-white">
             <Image
-              src={"/avatar.png"}
-              className="object-cover "
+              src={"/avatar.jpeg"}
+              className="object-cover rounded-full object-top"
               fill
               alt="avatar"
             />
