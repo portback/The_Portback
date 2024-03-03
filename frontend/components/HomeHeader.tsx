@@ -52,8 +52,9 @@ const HomeHeader = () => {
         </div>
 
         {isuserProfile
-          ? privateheaderroutes.map((item) => (
+          ? privateheaderroutes.map((item, i) => (
               <Link
+                key={i}
                 className={`${tabViewStyler(
                   item === "Timeline"
                     ? `/userprofile/${params.id}`
