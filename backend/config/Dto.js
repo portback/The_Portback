@@ -8,6 +8,7 @@ const UserDTO = (value) => {
     "apiKey",
     "otpExpires",
     "otpKey",
+    "skills",
   ];
   const updated = _.omit(value, excludedFields);
   return updated;

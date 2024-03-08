@@ -20,18 +20,24 @@ const userModel = mongoose.Schema(
       default: [],
       ref: "Skills",
     },
-    apiKey:{
-      type:String,
-      default:'',
+    role: {
+      type: String,
     },
-    otpKey:{
-      type:String,
-      default:null,
+    onBoarded: {
+      type: Boolean,
+      default: false,
     },
-    otpExpires:{
-      type:Date,
-
-    }
+    apiKey: {
+      type: String,
+      default: "",
+    },
+    otpKey: {
+      type: String,
+      default: null,
+    },
+    otpExpires: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );

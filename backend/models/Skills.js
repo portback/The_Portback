@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const skillSchema = mongoose.Schema({
-  name: {
+  skillName: {
     type: String,
     required: true,
     unique: true,
@@ -11,4 +11,4 @@ const skillSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Skills' , skillSchema)
+module.exports = mongoose.models.Skills || mongoose.model('Skills' , skillSchema)

@@ -124,12 +124,12 @@ const resetPassword = asyncHandler(async (req, res) => {
       .status(400)
       .send({ data: null, error: "otp , email and password are required " });
   }
- 
+
   try {
     const user = await User.findOne({ email });
-  
+
     if (!user || !verifyOtp(user.otpKey, otp)) {
-      console.log(otp)
+      console.log(otp);
       return res
         .status(401)
         .send({ data: null, error: "Invalid or expired token" });
@@ -151,4 +151,37 @@ const resetPassword = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { Create_User, loginUser, forgotPassword, resetPassword };
+const onBoardUser = asyncHandler(async (req, res) => {});
+
+const getMe = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.user);
+    if (user) {
+      res.status(200).send({ data: UserDTO(user), error: null });
+    }
+  } catch (error) {
+    res.status(500).send({ data: null, error: error.message });
+  }
+});
+
+const getUserbyId = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      res
+        .status(200)
+        .send({ data: UserDTO({ ...user?.toJSON(),  }), error: null });
+    }
+  } catch (error) {
+    res.status(500).send({ data: null, error: error.message });
+  }
+});
+
+module.exports = {
+  Create_User,
+  loginUser,
+  forgotPassword,
+  getUserbyId,
+  resetPassword,
+  getMe,
+};
