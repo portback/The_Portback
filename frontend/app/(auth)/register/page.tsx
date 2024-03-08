@@ -5,7 +5,7 @@ import CtaButton from "@/components/CtaButton";
 import AuthFields from "@/components/authFields";
 import { useFormik } from "formik";
 import { signUpSchema } from "@/validations/authValidations";
-import { createUser } from "@/requests/authRequest";
+import { createUser } from "@/lib/actions/authRequest";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 

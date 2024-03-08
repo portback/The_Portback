@@ -1,9 +1,14 @@
+"use client";
+
 import CreatePost from "@/components/CreatePost";
 import ProfileIntroCard from "@/components/ProfileIntroCard";
+import authStore from "@/stores/authStore";
 import Image from "next/image";
 import React from "react";
 
-const UserProfilePage = () => {
+const UserProfilePage = ({ params }: { params: { id: string } }) => {
+  const user = authStore((state) => state.user);
+
   return (
     <div className="flex w-full mt-[1rem] min-h-screen  gap-4">
       <div className="flex flex-col basis-1/3 px-3 py-3 gap-8">
@@ -32,9 +37,9 @@ const UserProfilePage = () => {
         </div>
       </div>
 
-      <div className="flex-1 py-3">
+      <div className="flex-1 py-3 text-white">
         {/* main */}
-        <CreatePost />
+        {params.id === user?._id && <CreatePost />}
       </div>
     </div>
   );

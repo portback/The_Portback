@@ -12,11 +12,14 @@ export default function UserProfileLayout({
 
 }: {
   children: React.ReactNode;
-  params: { id: string };
+
 }) {
   return (
     <div className=" flex flex-col  px-3 py-2 h-full  gap-6 ">
       <HomeHeader />
+      <div>
+        
+      </div>
       {children}
     </div>
   );

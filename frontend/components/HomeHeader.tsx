@@ -1,9 +1,11 @@
 "use client";
 import authStore from "@/stores/authStore";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
+import axios from "axios";
+import {  getUser } from "@/lib/actions/authRequest";
 
 const publicheaderroutes = ["Timeline", "About", "Projects", "Media"];
 const privateheaderroutes = [
@@ -14,12 +16,14 @@ const privateheaderroutes = [
   "Projects",
   "Media",
 ];
-
+// TODO:TYPE FULL PROJECT
 const HomeHeader = () => {
-  const user = authStore((state) => state.user);
   const params = useParams();
+  const user = authStore((state) => state.user);
+  const execwind = authStore((state) => state.initializeWindow);
   const isuserProfile = user?._id === params.id;
   const pathname = usePathname();
+  const [userdata, setUserdata] = useState<any>();
 
   const tabViewStyler = (route: string): string => {
     if (route === pathname) {
@@ -27,6 +31,20 @@ const HomeHeader = () => {
     }
     return "bg-transparent text-main-light";
   };
+
+  useEffect(() => {
+    const getme = async () => {
+      try {
+        execwind();
+        const userEff = authStore.getState().user;
+        const response = await getUser(params.id , userEff.token);
+        setUserdata(response?.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getme();
+  }, []);
 
   return (
     <div className="bg-components-bg h-[22%] w-full flex flex-col">
@@ -49,7 +67,9 @@ const HomeHeader = () => {
             />
           </div>
           <div className="flex flex-col gap-3">
-            <p className="text-white text-lg font-bold">{user && user.name}</p>
+            <p className="text-white text-lg font-bold">
+              {userdata && userdata?.name}
+            </p>
             {!isuserProfile && (
               <div className="px-4 py-1 text-center font-bold cursor-pointer rounded-full bg-white text-black">
                 Follow

@@ -85,3 +85,21 @@ export const reset_password = async (data: {
     console.log(error);
   }
 };
+
+export const getUser = async (id: string | string[], token: string) => {
+  try {
+    const response = await axios
+      .get(`http://localhost:5000/api/v1/auth/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${token}`,
+        },
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

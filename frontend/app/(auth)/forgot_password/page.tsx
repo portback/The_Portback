@@ -1,7 +1,7 @@
 "use client";
 import CtaButton from "@/components/CtaButton";
 import AuthFields from "@/components/authFields";
-import { forgot_password } from "@/requests/authRequest";
+import { forgot_password } from "@/lib/actions/authRequest";
 import { forgotSchema } from "@/validations/authValidations";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";

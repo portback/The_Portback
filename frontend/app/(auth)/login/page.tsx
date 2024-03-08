@@ -2,7 +2,7 @@
 import AuthCtaLinks from "@/components/AuthCtaLinks";
 import CtaButton from "@/components/CtaButton";
 import AuthFields from "@/components/authFields";
-import { loginUser } from "@/requests/authRequest";
+import { loginUser } from "@/lib/actions/authRequest";
 import { loginSchema } from "@/validations/authValidations";
 import { useFormik } from "formik";
 import React from "react";
