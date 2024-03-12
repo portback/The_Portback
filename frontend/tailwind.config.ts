@@ -61,6 +61,8 @@ const config = {
           light: "#5F6175",
           green: "#93F720",
           blue: "#1AA0FF",
+          accent_blue: "#465862",
+          message:'#6E6F84'
         },
         components: {
           bg: "#191D2E",
