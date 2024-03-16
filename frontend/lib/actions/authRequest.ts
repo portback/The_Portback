@@ -89,7 +89,7 @@ export const reset_password = async (data: {
 export const getUser = async (id: string | string[], token: string) => {
   try {
     const response = await axios
-      .get(`http://localhost:5000/api/v1/auth/${id}`, {
+      .get(`${baseurl}${id}`, {
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": `${token}`,

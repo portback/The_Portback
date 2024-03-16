@@ -6,13 +6,8 @@ import React from "react";
 
 const SkillsPage = () => {
   return (
-    <div className="w-full flex flex-col items-center mt-[4rem]">
-      <div className="flex w-[70%] px-4 items-center justify-between ">
-        <div>add skills</div>
-        <div className="px-3 py-2 rounded-md bg-[#6FFFE9] min-w-[300px]">
-     
-        </div>
-      </div>
+    <div >
+   
     </div>
   );
 };
