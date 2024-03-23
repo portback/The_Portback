@@ -9,17 +9,23 @@ import { Separator } from "./ui/separator";
 const Sidebar = ({ params }: any) => {
   const pathname = usePathname();
 
+  const active = (route: string) => {
+    // is route / or /pathname
+    if (route === "/" && route === pathname) {
+      return true;
+    }
+    if (pathname.includes(route) && route !== "/") {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div
       className={` custom-scroll overflow-auto sticky w-[15vw] top-0 left-0 h-screen  bg-sidebar-bg border-r-[1px] border-sidebar-border z-10  shadow-lg  py-[1rem]  md:flex flex-col  hidden `}
     >
-      <div className="relative w-[60%] h-[40px] self-center">
-        <Image
-          src={"/sidetext.png"}
-          alt="text"
-          fill
-          className="object-contain"
-        />
+      <div className="relative w-[70%] mx-2 h-[50px]  flex">
+        <Image src={"/Logo.png"} alt="text" fill className="object-cover" />
       </div>
       <div className="flex flex-col justify-between h-full">
         {/* nav routes for left side bar */}
@@ -28,9 +34,13 @@ const Sidebar = ({ params }: any) => {
             <Link
               href={item.href}
               key={i}
-              className={`${pathname == item.href ? 'bg-[#1E2231] text-white' : 'text-main-light bg-transparent'} flex items-center gap-4 px-2 py-2 rounded-md `}
+              className={`${
+                active(item.href)
+                  ? "bg-[#1E2231] text-white"
+                  : "text-main-light bg-transparent"
+              } flex items-center gap-4 px-2 py-2 rounded-md `}
             >
-              <item.Icon  fontSize={22} />
+              <item.Icon fontSize={22} />
               <p className="text-base">{item.title}</p>
             </Link>
           ))}

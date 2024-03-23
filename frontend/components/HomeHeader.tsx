@@ -6,6 +6,7 @@ import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import {  getUser } from "@/lib/actions/authRequest";
+import { User } from "@/types/User";
 
 const publicheaderroutes = ["Timeline", "About", "Projects", "Media"];
 const privateheaderroutes = [
@@ -23,7 +24,7 @@ const HomeHeader = () => {
   const execwind = authStore((state) => state.initializeWindow);
   const isuserProfile = user?._id === params.id;
   const pathname = usePathname();
-  const [userdata, setUserdata] = useState<any>();
+  const [userdata, setUserdata] = useState<User>();
 
   const tabViewStyler = (route: string): string => {
     if (route === pathname) {
