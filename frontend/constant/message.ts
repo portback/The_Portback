@@ -48,4 +48,8 @@ export const convo = [
     type:'receiver',
     content: "ohh",
   },
+  {
+    type:'sender',
+    content:'wassup bitch'
+  }
 ];

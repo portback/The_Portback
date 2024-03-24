@@ -1,10 +1,4 @@
 "use client";
-import MessageContactList from "@/components/MessageContactList";
-import MessageInput from "@/components/MessageInput";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { convo } from "@/constant/message";
-import Image from "next/image";
 import React from "react";
 
 const MessagePage = () => {

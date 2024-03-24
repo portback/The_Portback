@@ -4,7 +4,7 @@ import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
 import { Input } from "./ui/input";
 import { BsSendCheckFill } from "react-icons/bs";
-import EmojiPicker from "emoji-picker-react";
+import EmojiPicker, { Theme } from "emoji-picker-react";
 
 function MessageInput() {
   const [message, setMessage] = useState("");
@@ -37,6 +37,7 @@ function MessageInput() {
       <div>
         {showEmojiPicker && (
           <EmojiPicker
+            theme={Theme.DARK}
             onEmojiClick={(emoji, event) => {
               handleEmojiSelect(emoji.emoji);
             }}
