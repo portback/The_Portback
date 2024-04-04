@@ -8,9 +8,17 @@ class CommentRepository {
         author,
         likes: [],
       });
-    } catch (error) {
-        
-    }
+    } catch (error) {}
+  }
+  async getCommentReplies(commentId) {}
+
+  getComments(postId) {}
+
+  async EditComment(content, author) {}
+
+  async DeleteComment(content, author) {
+    try {
+    } catch (error) {}
   }
 }
 

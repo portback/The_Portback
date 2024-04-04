@@ -1,47 +1,83 @@
-const User = require("./User");
+const { CustomeError } = require("../../utils");
+const User = require("../models/User");
 
 // deals with data related operations
 class UserRepository {
-  async CreateUser({ email, password, name }) {
-    try {
-      const user = await User.create({
-        email,
-        password,
-        name,
-      });
+  async CreateUser(email, password, name) {
+    const user = await User.create({
+      email,
+      password,
+      name,
+    });
 
-      if (user) {
-        return user;
-      }
-    } catch (error) {
-      console.log(error);
+    if (user) {
+      return user;
     }
   }
 
   async followUser(userId, followingId) {
     try {
-      const user = await User.findById({ userId });
-      const userFollowed = await User.findById({ followingId });
+      const user = await User.findById(userId);
+      const userFollowed = await User.findById(followingId);
 
-      user.followers.push(followingId);
-      userFollowed.following.push(userId);
+      if (!userFollowed) {
+        throw new CustomeError("User does not exist", 404);
+      }
+
+      if (userId === followingId) {
+        throw new CustomeError("Cant follow Yourself", 400);
+      }
+
+      if (user.following.findIndex((item) => item == followingId) != -1) {
+        throw new CustomeError("Already Following User", 400);
+      }
+
+      user.following.unshift(followingId);
+      userFollowed.followers.unshift(userId);
 
       await user.save();
       await userFollowed.save();
+
+      return `Followed user ${userFollowed.name} successfully`;
     } catch (error) {
-      console.log("=================== an error occured =========", error);
+      console.error(error);
+      throw error;
     }
   }
 
-  async OnboardUser(userId, payload) {
+  async UnfollowUser(userId, followingId) {
     try {
-      const boardUser = await this.updateUser(userId, {
-        ...payload,
-        onBoarded: true,
-      });
-      return boardUser;
+      const user = await User.findById(userId);
+      const userFollowed = await User.findById(followingId);
+
+      if (!userFollowed) {
+        throw new CustomeError("User does not exist", 404);
+      }
+
+      if (userId === followingId) {
+        throw new CustomeError("Cant unfollow Yourself", 400);
+      }
+
+      if (user.following.findIndex((item) => item == followingId) === -1) {
+        throw new CustomeError("Not Following User", 400);
+      }
+
+      user.following.splice(
+        user.following.findIndex((item) => item == followingId),
+        1
+      );
+      userFollowed.followers.splice(
+        userFollowed.followers.findIndex((item) => item == userId),
+        1
+      );
+
+      await user.save();
+      await userFollowed.save();
+
+      return `Unfollowed user ${userFollowed.name} successfully`;
     } catch (error) {
-      console.log(error?.message);
+      console.error(error);
+      throw error;
     }
   }
 
@@ -50,16 +86,60 @@ class UserRepository {
       const user = await User.findById({ id });
       return user;
     } catch (error) {
-      console.log(error);
+      throw new CustomeError(
+        `================= Query Failed ==============`,
+        400
+      );
     }
   }
 
-  async updateUser(id, payload) {
+  async getUserByEmail(email) {
     try {
-      const updateUser = await User.findOneAndUpdate({ id }, payload);
-      return updateUser;
+      const user = await User.findOne({ email }).lean();
+
+      if (user && user._id) {
+        user._id = user._id.toString();
+      }
+
+      return user;
     } catch (error) {
-      console.log(error);
+      throw new CustomeError(
+        `================= Query Failed ==============`,
+        400
+      );
+    }
+  }
+
+  async getUserData(fields, _id, populate, page = 1, req) {
+    console.log(req.originalUrl);
+
+    try {
+      const data = await User.findById(_id, fields)
+        .populate({
+          path: populate,
+          select: fields,
+        })
+        .lean();
+      return {
+        data,
+      };
+    } catch (error) {
+      throw new CustomeError(
+        `================ Query Failed ============: ${error.message}`,
+        400
+      );
+    }
+  }
+
+  async updateUser(_id, payload) {
+    try {
+      const updated = await User.findOneAndUpdate({ _id }, payload);
+      return updated;
+    } catch (error) {
+      throw new CustomeError(
+        `==================== Error updating user ===================== ${error}`,
+        500
+      );
     }
   }
 

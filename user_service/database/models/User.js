@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const { defaultAvatar } = require("../../constants");
 
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema;
 
-const userSchema = new Schema(
+const userSchema = Schema(
   {
     email: {
       type: String,
@@ -21,8 +22,9 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    profileImg: {
+    avatar: {
       type: String,
+      default: defaultAvatar,
     },
     role: {
       type: String,
@@ -53,6 +55,9 @@ const userSchema = new Schema(
     otpExpires: {
       type: Date,
     },
+    playerName: {
+      type: String,
+    },
   },
   {
     toJSON: {
@@ -61,6 +66,8 @@ const userSchema = new Schema(
         delete _ret.password;
         delete _ret.otpKey;
         delete _ret.otpExpires;
+        delete _ret.followers;
+        delete _ret.following;
       },
     },
     timestamps: true,

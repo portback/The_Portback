@@ -1,0 +1,142 @@
+const { validateUserSchema, cleanPayload } = require("../config/dto/User.dto");
+const {
+  validateLoginSchema,
+  validateOnBoardingSchema,
+} = require("../config/dto/login.dto");
+const { UserService } = require("../services");
+const { CustomeError } = require("../utils");
+const { VerifyToken, auth } = require("./middlewares");
+
+module.exports = (app) => {
+  const userService = new UserService();
+
+  app.get("/followers", auth, async (req, res, next) => {
+    try {
+      const followers = await userService.getUserData(
+        "_id name avatar",
+        req.user._id,
+        "followers",
+        req
+      );
+
+      res.status(200).send({ data: followers, error: null });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  app.get("/following", auth, async (req, res, next) => {});
+
+  app.post("/create-account", async (req, res, next) => {
+    const { email, password, name } = req.body;
+
+    if (await validateUserSchema({ email, password, name })) {
+      const errMessage = await validateUserSchema({ email, name, password });
+      return res.status(400).send({
+        data: null,
+        error: errMessage,
+      });
+    } else {
+      try {
+        const newUser = await userService.Signup(name, email, password);
+
+        res.status(201).send({ data: newUser, error: null });
+      } catch (error) {
+        if (error.code === 11000) {
+          return res
+            .status(400)
+            .send({ data: null, error: "user already exist" });
+        }
+        return res.status(500).send({ data: null, error: error });
+      }
+    }
+  });
+
+  app.post("/login", async (req, res, next) => {
+    const { email, password } = req.body;
+
+    if (await validateLoginSchema({ email, password })) {
+      const errMessage = await validateLoginSchema({ email, password });
+      return res.status(400).send({ data: null, error: errMessage });
+    } else {
+      try {
+        const SignIn = await userService.SignIn(email, password);
+
+        res.status(200).json({ data: SignIn, error: null });
+      } catch (error) {
+        next(error);
+      }
+    }
+  });
+
+  app.post("/forgot-password", async (req, res, next) => {
+    const { email } = req.body;
+
+    if (!email?.length) {
+      return res
+        .status(400)
+        .send({ data: null, error: "email field is required" });
+    } else {
+      try {
+        const forgotPassword = await userService.RecoverPassword(email);
+        res.status(200).send({ data: forgotPassword, error: null });
+      } catch (error) {
+        next(error);
+      }
+    }
+  });
+
+  app.post("/onbooarding", auth, async (req, res, next) => {
+    const { bio, location, role, playerName } = req.body;
+
+    if (await validateOnBoardingSchema({ bio, location, role, playerName })) {
+      const errMessage = await validateOnBoardingSchema({
+        bio,
+        location,
+        role,
+        playerName,
+      });
+      throw new CustomeError(errMessage, 400);
+    } else {
+      try {
+        const onboard = await userService.OnboardUser(
+          bio,
+          location,
+          role,
+          playerName,
+          req.user._id
+        );
+        res.status(200).send({ data: cleanPayload(onboard), error: null });
+      } catch (error) {
+        next(error);
+      }
+    }
+  });
+  app.post("/follow/:id", auth, async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+      const following = await userService.FollowUser(req.user._id, id);
+
+      res.status(200).send({ data: following, error: null });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  app.post("/unfollow/:id", auth, async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+      const following = await userService.UnfollowUser(req.user._id, id);
+
+      res.status(200).send({ data: following, error: null });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  app.patch("/:id", (req, res, next) => {});
+
+  app.delete("/delete/:id", (req, res, next) => {});
+};

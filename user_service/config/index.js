@@ -10,4 +10,6 @@ if (process.env.NODE_ENV !== "prod") {
 module.exports = {
   MONGO_URI: process.env.MONGO_URI,
   PORT: process.env.PORT,
+  Email: process.env.EMAIL,
+  Email_key: process.env.EMAIL_PASS,
 };

@@ -1,11 +1,12 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const expressApp = require("./expressApp");
+const { dbconnection } = require("./database");
 dotenv.config();
 
 const StartServer = async () => {
   const app = express();
-
+  await dbconnection();
   await expressApp(app);
 
   app
