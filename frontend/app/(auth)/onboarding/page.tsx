@@ -21,6 +21,7 @@ const OnboardingPage = () => {
       <input
         type="file"
         accept="image/*"
+        className="bg-no-repeat"
         onChange={async (e) => setBase64(await handleImageInputChange(e))}
       />
     </div>

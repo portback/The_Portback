@@ -9,5 +9,5 @@ if (process.env.NODE_ENV !== "prod") {
 }
 
 module.exports = {
-  PORTS: process.env.PORTS,
+  PORT: process.env.PORT,
 };
