@@ -2,6 +2,7 @@ const { validateUserSchema, cleanPayload } = require("../config/dto/User.dto");
 const {
   validateLoginSchema,
   validateOnBoardingSchema,
+  validateResetSchema,
 } = require("../config/dto/login.dto");
 const { UserService } = require("../services");
 const { CustomeError } = require("../utils");
@@ -80,6 +81,29 @@ module.exports = (app) => {
       try {
         const forgotPassword = await userService.RecoverPassword(email);
         res.status(200).send({ data: forgotPassword, error: null });
+      } catch (error) {
+        next(error);
+      }
+    }
+  });
+
+  app.post("/reset-password", async (req, res, next) => {
+    const { email, otp, password } = req.body;
+
+    if (await validateResetSchema({ email, password, otp })) {
+      const errMessage = await validateResetSchema({ email, password, otp });
+      throw CustomeError(errMessage, 400);
+    } else {
+      try {
+        const resetPassWord = await userService.ResetPassword(
+          otp,
+          password,
+          email
+        );
+
+        res
+          .status(200)
+          .send({ data: "password reset succesfully ", error: null });
       } catch (error) {
         next(error);
       }

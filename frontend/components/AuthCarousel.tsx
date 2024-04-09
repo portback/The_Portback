@@ -4,8 +4,12 @@ import React, { useEffect, useState } from "react";
 
 const imgArr = [
   "/carousel1.png",
+  "/carousel4.jpeg",
+  "/carousel5.gif",
+  "/carousel6.jpeg",
   "/carousel3.png",
   "/carousels1.jpeg",
+  "/carousel7.jpeg",
   "/carousels2.jpeg",
   "/carousels3.jpeg",
 ];

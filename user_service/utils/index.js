@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Email, Email_key } = require("../config");
+const amqplib = require("amqplib");
 
 module.exports.SerializePassword = async (password) => {
   try {
@@ -40,10 +41,6 @@ module.exports.ValidateToken = (req) => {
     return false;
   }
 };
-
-module.exports.PublishPostEvents = async () => {};
-
-module.exports.ContactService = async () => {};
 
 module.exports.HandleError = require("./error-handler");
 
@@ -96,12 +93,39 @@ module.exports.verifyOtp = (otp, other) => {
   });
 };
 
+/* ================== message broker ================= */
 
+// create a channel
+module.exports.CreateChannel = async () => {
+  try {
+    const connection = await amqplib.connect(Message_Broker_Uri);
+    const channel = await connection.createChannel();
+    await channel.assertExchange(EXCHANGE_NAME, "direct", false);
+  } catch (error) {
+    throw error;
+  }
+};
 
+// publish message
 
+module.exports.PublishMessage = async (channel, binding_key, message) => {
+  try {
+    await channel.publish(EXCHANGE_NAME, binding_key, Buffer.from(message));
+  } catch (error) {
+    throw err;
+  }
+};
 
+// subscribe message
 
+module.exports.SuscribeMessage = async (channel, service, binding_key) => {
+  const appQueue = await channel.assertQueue(QUEUE_NAME);
 
+  channel.bindQueue(appQueue.queue, EXCHANGE_NAME, binding_key);
 
-
-
+  channel.consume(appQueue.queue, (data) => {
+    console.log("receieved data");
+    console.log(data.content.toString());
+    channel.ack(data);
+  });
+};

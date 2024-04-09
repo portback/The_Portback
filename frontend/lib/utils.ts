@@ -11,7 +11,7 @@ export const handleImageInputChange = async (
   return new Promise<string>((resolve, reject) => {
     const file = event.target.files![0];
     const reader = new FileReader();
-    
+
     reader.onloadend = () => {
       const base64String = reader.result as string;
       resolve(base64String);

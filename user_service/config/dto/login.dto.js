@@ -28,3 +28,17 @@ module.exports.validateOnBoardingSchema = async (schema) => {
     return error.errors[0];
   }
 };
+
+const resetPassSchema = yup.object({
+  otp: yup.string().length(6).required("otp is required"),
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+});
+
+module.exports.validateResetSchema = async (schema) => {
+  try {
+    await resetPassSchema.validate(schema);
+  } catch (error) {
+    return error.errors[0];
+  }
+};

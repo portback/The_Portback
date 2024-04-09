@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC } from "react";
 
 interface AuthFieldsI {
-  title: string;
+  title?: string;
   placeholder: string;
   type?: string;
   name: string;
@@ -11,7 +11,7 @@ interface AuthFieldsI {
 }
 
 const AuthFields: FC<AuthFieldsI> = ({
-  title,
+
   placeholder,
   type,
   name,

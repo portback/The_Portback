@@ -8,6 +8,7 @@ const {
   generateOTPSecret,
   generateOTP,
   sendMail,
+  verifyOtp,
 } = require("../utils");
 
 class UserService {
@@ -89,7 +90,31 @@ class UserService {
     }
   }
 
-  async ResetPassword(otp, password) {}
+  async ResetPassword(otp, password, email) {
+    try {
+      const isuser = await this.userRepository.getUserByEmail(email);
+
+      if (!isuser) {
+        throw new CustomeError(`User with email ${email} doens't exist `);
+      } else {
+        const verify = verifyOtp(isuser.otpKey, otp);
+
+        if (verify) {
+          const hashedPassword = await SerializePassword(password);
+
+          const update = await this.userRepository.updateUser(isuser._id, {
+            password: hashedPassword,
+            otpKey: null,
+            otpExpires: null,
+          });
+
+          return update;
+        }
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 
   async FollowUser(userId, followId) {
     try {

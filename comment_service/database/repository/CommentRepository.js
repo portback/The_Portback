@@ -16,9 +16,14 @@ class CommentRepository {
 
   async EditComment(content, author) {}
 
-  async DeleteComment(content, author) {
+  async DeleteComment(_id) {
     try {
-    } catch (error) {}
+      const deleteComment = await Comment.deleteOne(_id);
+
+      return 'Deleted comment suceessfully ';
+    } catch (error) {
+      throw new CustomeError
+    }
   }
 }
 

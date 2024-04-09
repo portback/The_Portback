@@ -20,7 +20,7 @@ const Login = () => {
       if (response) {
         toast("Login Successful", { theme: "colored" });
         localStorage.setItem("portback_user", JSON.stringify(response.data));
-        router.push("/");
+        router.push("/onboarding");
       }
     } catch (error) {
       console.log(error);

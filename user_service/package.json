@@ -6,12 +6,12 @@
   "scripts": {
     "start": "NODE_ENV=prod node index.js",
     "dev": "NODE_ENV=dev nodemon index.js"
- 
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.10.3",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
