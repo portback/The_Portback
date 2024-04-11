@@ -48,3 +48,10 @@ export const resetSchema = yup.object({
     })
     .required("password is required"),
 });
+
+export const onboardSchema = yup.object({
+  role: yup.string().required(),
+  location: yup.string().required(),
+  bio: yup.string().max(300).required(),
+  playerName: yup.string().required(),
+});

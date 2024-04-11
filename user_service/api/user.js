@@ -110,30 +110,33 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/onbooarding", auth, async (req, res, next) => {
+  app.post("/onboarding", auth, async (req, res, next) => {
     const { bio, location, role, playerName } = req.body;
-
-    if (await validateOnBoardingSchema({ bio, location, role, playerName })) {
-      const errMessage = await validateOnBoardingSchema({
-        bio,
-        location,
-        role,
-        playerName,
-      });
-      throw new CustomeError(errMessage, 400);
-    } else {
-      try {
-        const onboard = await userService.OnboardUser(
+    try {
+      if (await validateOnBoardingSchema({ bio, location, role, playerName })) {
+        const errMessage = await validateOnBoardingSchema({
           bio,
           location,
           role,
           playerName,
-          req.user._id
-        );
-        res.status(200).send({ data: cleanPayload(onboard), error: null });
-      } catch (error) {
-        next(error);
+        });
+        throw new CustomeError(errMessage, 400);
+      } else {
+        try {
+          const onboard = await userService.OnboardUser(
+            bio,
+            location,
+            role,
+            playerName,
+            req.user._id
+          );
+          res.status(200).send({ data: cleanPayload(onboard), error: null });
+        } catch (error) {
+          next(error);
+        }
       }
+    } catch (error) {
+      next(error);
     }
   });
   app.post("/follow/:id", auth, async (req, res, next) => {
@@ -155,6 +158,16 @@ module.exports = (app) => {
       const following = await userService.UnfollowUser(req.user._id, id);
 
       res.status(200).send({ data: following, error: null });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  app.get("/user/:id", auth, async (req, res, next) => {
+    try {
+      console.log(req.params.id);
+      const user = await userService.getMe(req.params.id);
+      res.status(200).send({ data: user, error: null });
     } catch (error) {
       next(error);
     }

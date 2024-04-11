@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar";
 import Initializer from "@/components/Initializer";
 import Topbar from "@/components/Topbar";
 import LeftSidebar from "@/components/LeftSidebar";
+import { Toaster } from "@/components/ui/toaster";
 
 const irish = Irish_Grover({
   weight: "400",
@@ -35,10 +36,12 @@ export default function RootLayout({
             <Topbar />
             <div className="flex h-full ">
               <div className="flex-1 min-h-[150vh]">{children}</div>
+
               <LeftSidebar />
             </div>
           </div>
         </main>
+        <Toaster />
       </body>
     </html>
   );

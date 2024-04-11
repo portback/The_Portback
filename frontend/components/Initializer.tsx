@@ -12,9 +12,14 @@ const Initializer = () => {
     execWindow();
 
     const isLogged = authStore.getState().isLoggedin;
+    const user = authStore.getState().user;
 
     if (!isLogged) {
       redirect("/login");
+    }
+
+    if (!user.onBoarded) {
+      redirect("/onboarding");
     }
   }, []);
 

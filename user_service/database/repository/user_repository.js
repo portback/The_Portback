@@ -83,7 +83,7 @@ class UserRepository {
 
   async getUserById(id) {
     try {
-      const user = await User.findById({ id });
+      const user = await User.findById(id);
       return user;
     } catch (error) {
       throw new CustomeError(

@@ -15,12 +15,18 @@ const Login = () => {
 
   const onSubmit = async (values: any) => {
     try {
-      toast('loging youin please wait')
+      toast("loging youin please wait");
       const response = await loginUser(values);
       if (response) {
         toast("Login Successful", { theme: "colored" });
         localStorage.setItem("portback_user", JSON.stringify(response.data));
-        router.push("/onboarding");
+
+        if (response?.data.onBoarded === false) {
+          router.push("/onboarding");
+          console.log(false);
+        } else {
+          router.push("/");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +73,7 @@ const Login = () => {
 
         <div className="mt-[3rem] flex items-center gap-3">
           <p className="font-sans text-muted-foreground">Other Options</p>
-          <Separator className="bg-muted-foreground flex-1"  />
+          <Separator className="bg-muted-foreground flex-1" />
         </div>
         <AuthCtaLinks
           linksArray={[

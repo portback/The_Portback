@@ -1,10 +1,15 @@
-
 import React from "react";
 import { FaBriefcase, FaBasketballBall } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 import { LiaPrayingHandsSolid } from "react-icons/lia";
 
-const ProfileIntroCard = () => {
+const ProfileIntroCard = ({
+  userdata,
+}: {
+  userdata: {
+    name: string;
+  };
+}) => {
   return (
     <div className="min-h-[200px] w-full rounded-md bg-sidebar-bg text-main-light px-2 py-2 flex flex-col gap-4">
       <p className="text-lg tracking-widest capitalize font-serif font-bold ">

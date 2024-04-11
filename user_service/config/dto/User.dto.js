@@ -21,6 +21,11 @@ module.exports.cleanPayload = (user) => {
   delete user.updatedAt;
   delete user.followers;
   delete user.following;
+  delete user.playerName;
+  delete user.bio;
+  delete user.apiKey;
+  delete user.role;
+  delete user.location;
 
   return user;
 };

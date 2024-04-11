@@ -10,6 +10,7 @@ const {
   sendMail,
   verifyOtp,
 } = require("../utils");
+const CustomError = require("../utils/app-errors");
 
 class UserService {
   constructor() {
@@ -162,6 +163,15 @@ class UserService {
         req
       );
       return get;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getMe(_id) {
+    try {
+      const user = await this.userRepository.getUserById(_id);
+      return user;
     } catch (error) {
       throw error;
     }

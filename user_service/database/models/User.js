@@ -68,6 +68,8 @@ const userSchema = Schema(
         delete _ret.otpExpires;
         delete _ret.followers;
         delete _ret.following;
+        delete _ret.updatedAt;
+        delete _ret.apiKey;
       },
     },
     timestamps: true,

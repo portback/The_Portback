@@ -1,11 +1,63 @@
 "use client";
 import { MotionDiv } from "@/common/MotionDiv";
 import AuthFields from "@/components/authFields";
+import { Button } from "@/components/ui/button";
+import { onBoardUser } from "@/lib/actions/authRequest";
+import authStore from "@/stores/authStore";
+import { onboardSchema } from "@/validations/authValidations";
+import { useFormik } from "formik";
 import Image from "next/image";
-import React, { useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Onboard = () => {
+  const [user, setuser] = useState<any>("");
+  const router = useRouter();
+
+  useEffect(() => {
+    const exec = authStore.getState().initializeWindow;
+
+    exec();
+    const data = authStore.getState().user;
+
+    if (data.onBoarded) {
+      redirect("/");
+    }
+    setuser(data);
+  }, []);
+
+  const onSubmit = async (value: any) => {
+    toast("Onboarding user please wait", { theme: "colored" });
+
+    try {
+      const onboard = await onBoardUser(value, user?.token);
+      if (onboard) {
+        console.log(onboard);
+        localStorage.setItem(
+          "portback_user",
+          JSON.stringify({ ...user, onBoarded: true })
+        );
+        router.push("/");
+        toast.success("onboarded user successfully", { theme: "dark" });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { values, errors, handleChange, handleSubmit } = useFormik({
+    initialValues: {
+      role: "",
+      playerName: "",
+      location: "",
+      bio: "",
+    },
+    onSubmit,
+    validationSchema: onboardSchema,
+  });
+
   return (
     <div className="w-full h-full flex flex-col items-center mt-[2rem] ">
       <MotionDiv.div
@@ -32,18 +84,18 @@ const Onboard = () => {
             <div className="rounded-full w-[100px] h-[100px] bg-main-light text-black flex items-center justify-center ">
               <FaCamera fontSize={27} />
             </div>
-            <p className="text-main-light">Update Avatar</p>
+            <p className="text-main-light">Update Avatar ( optional ) </p>
           </div>
 
           <div className="grid grid-cols-2">
             <div className="mx-4 my-2">
               <p className="text-white ">Role</p>
               <AuthFields
-                onChange={() => console.log("hello")}
-                value=""
-                errors=""
-                name="Location"
-                placeholder=""
+                onChange={handleChange}
+                value={values.role}
+                errors={errors.role}
+                name="role"
+                placeholder="eg. Software Engineer"
               />
               <p className="text-sm text-main-light mt-1">
                 tell us what you do in tech e.g Devleoper 😄 or QA 😠
@@ -52,11 +104,11 @@ const Onboard = () => {
             <div className="mx-4 my-2">
               <p className="text-white ">Player name</p>
               <AuthFields
-                onChange={() => console.log("hello")}
-                value=""
-                errors=""
-                name="PlayerName"
-                placeholder=""
+                onChange={handleChange}
+                value={values.playerName}
+                errors={errors.playerName}
+                name="playerName"
+                placeholder="abin18"
               />
               <p className="text-sm text-main-light mt-1">
                 Every developer games to reduce stress 😄. whats your gaming
@@ -66,29 +118,35 @@ const Onboard = () => {
             <div className="mx-4">
               <p className="text-white ">Location</p>
               <AuthFields
-                onChange={() => console.log("hello")}
-                value=""
-                errors=""
-                name="Location"
-                placeholder=""
+                onChange={handleChange}
+                value={values.location}
+                errors={errors.location}
+                name="location"
+                placeholder="location"
               />
               <p className="text-sm text-main-light mt-1">
                 where do you stay 🏠
               </p>
             </div>
             <div className="mx-4">
-              <p className="text-white ">Location</p>
+              <p className="text-white ">Bio</p>
               <AuthFields
-                onChange={() => console.log("hello")}
-                value=""
-                errors=""
-                name="Location"
+                onChange={handleChange}
+                value={values.bio}
+                errors={errors.bio}
+                name="bio"
                 placeholder=""
               />
               <p className="text-sm text-main-light mt-1">
-                where do you stay 🏠
+                tell us about yourself🏠
               </p>
             </div>
+          </div>
+
+          <div>
+            <Button onClick={(e) => handleSubmit()} className="">
+              Come on Onboard
+            </Button>
           </div>
         </div>
       </MotionDiv.div>

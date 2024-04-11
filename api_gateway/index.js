@@ -4,7 +4,7 @@ const proxy = require("express-http-proxy");
 const cors = require("cors");
 
 const app = express();
-
+  
 app.use(express.json());
 
 app.use("/api/v1/auth", proxy("http://localhost:5001"));

@@ -1,13 +1,47 @@
 "use client";
-
 import CreatePost from "@/components/CreatePost";
 import ProfileIntroCard from "@/components/ProfileIntroCard";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
+import { getUser } from "@/lib/actions/authRequest";
 import authStore from "@/stores/authStore";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const UserProfilePage = ({ params }: { params: { id: string } }) => {
+  const [userData, setUserData] = useState<any>();
   const user = authStore((state) => state.user);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const user = authStore.getState().user;
+        const response = await getUser(params.id, user?.token);
+
+        if (response) {
+          setUserData(response?.data);
+          console.log(response);
+        }
+      } catch (error) {
+        console.log(error);
+        toast({
+          variant: "default",
+          title: "Uh oh something went wrong",
+          description: "Error fetching user data",
+          action: (
+            <ToastAction
+              onClick={async () => await getData()}
+              altText="try again"
+            >
+              Try Again
+            </ToastAction>
+          ),
+        });
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <div className="flex w-full mt-[1rem] min-h-screen  gap-4">
