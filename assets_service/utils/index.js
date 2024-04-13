@@ -40,3 +40,5 @@ module.exports.SuscribeMessage = async (channel, service, binding_key) => {
     channel.ack(data);
   });
 };
+
+

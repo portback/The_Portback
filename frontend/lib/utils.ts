@@ -25,3 +25,7 @@ export const handleImageInputChange = async (
   });
 };
 
+export const getDate = (datestring: string) => {
+  const date = new Date(datestring);
+  return date.toDateString();
+};

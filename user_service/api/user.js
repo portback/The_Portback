@@ -42,13 +42,8 @@ module.exports = (app) => {
         const newUser = await userService.Signup(name, email, password);
 
         res.status(201).send({ data: newUser, error: null });
-      } catch (error) {
-        if (error.code === 11000) {
-          return res
-            .status(400)
-            .send({ data: null, error: "user already exist" });
-        }
-        return res.status(500).send({ data: null, error: error });
+         } catch (error) {
+        next(error);
       }
     }
   });
@@ -130,7 +125,9 @@ module.exports = (app) => {
             playerName,
             req.user._id
           );
-          res.status(200).send({ data: cleanPayload(onboard), error: null });
+          res
+            .status(200)
+            .send({ data: cleanPayload(onboard?.toJSON()), error: null });
         } catch (error) {
           next(error);
         }
@@ -165,7 +162,6 @@ module.exports = (app) => {
 
   app.get("/user/:id", auth, async (req, res, next) => {
     try {
-      console.log(req.params.id);
       const user = await userService.getMe(req.params.id);
       res.status(200).send({ data: user, error: null });
     } catch (error) {

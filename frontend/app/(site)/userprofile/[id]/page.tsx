@@ -4,6 +4,7 @@ import ProfileIntroCard from "@/components/ProfileIntroCard";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import { getUser } from "@/lib/actions/authRequest";
+import { getDate } from "@/lib/utils";
 import authStore from "@/stores/authStore";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -47,7 +48,7 @@ const UserProfilePage = ({ params }: { params: { id: string } }) => {
     <div className="flex w-full mt-[1rem] min-h-screen  gap-4">
       <div className="flex flex-col basis-1/3 px-3 py-3 gap-8">
         {/* sidebar */}
-        <ProfileIntroCard />
+        <ProfileIntroCard userdata={userData} />
         <div className="min-h-[210px] w-full rounded-md bg-sidebar-bg text-main-light ">
           <div className="relative w-full h-[70%]">
             <Image
@@ -62,7 +63,10 @@ const UserProfilePage = ({ params }: { params: { id: string } }) => {
               Portback User
             </p>
             <p className="font-medium capitalize">
-              since <span className="text-main-blue">16th Aug 2023</span>
+              since{" "}
+              <span className="text-main-blue">
+                {getDate(userData?.createdAt)}
+              </span>
             </p>
           </div>
         </div>
@@ -74,7 +78,9 @@ const UserProfilePage = ({ params }: { params: { id: string } }) => {
       <div className="flex-1 py-3 text-white">
         {/* main */}
         {params.id === user?._id && <CreatePost />}
+      <div className="text-white font-bold">No Activity</div>
       </div>
+
     </div>
   );
 };

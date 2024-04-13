@@ -8,6 +8,9 @@ const ProfileIntroCard = ({
 }: {
   userdata: {
     name: string;
+    location: string;
+    playerName: string;
+    role: string;
   };
 }) => {
   return (
@@ -18,15 +21,15 @@ const ProfileIntroCard = ({
       <div className="flex flex-col gap-3 ">
         <div className="text-white flex items-center gap-3">
           <FaBriefcase fill="white" />
-          <p>Product Designer at </p>
-          <span className="text-[#1AA0FF]">Apple</span>
+          <p>{userdata?.role} </p>
         </div>
         <div className="text-white flex items-center gap-3">
-          <MdHome /> Live in <span className="text-[#1AA0FF]">Tokyo</span>
+          <MdHome /> Live in{" "}
+          <span className="text-[#1AA0FF]">{userdata?.location}</span>
         </div>{" "}
         <div className="text-white flex items-center gap-3">
           <FaBasketballBall /> Player name{" "}
-          <span className="text-[#1AA0FF]">Apple</span>
+          <span className="text-[#1AA0FF]">{userdata?.playerName}</span>
         </div>{" "}
         <div className="text-white flex items-center gap-3">
           <LiaPrayingHandsSolid />{" "}

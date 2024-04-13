@@ -4,14 +4,23 @@ const User = require("../models/User");
 // deals with data related operations
 class UserRepository {
   async CreateUser(email, password, name) {
-    const user = await User.create({
-      email,
-      password,
-      name,
-    });
+    try {
+      const isUser = await this.getUserByEmail(email);
+      if (isUser) {
+        throw new CustomeError("User with email already exist ", 400);
+      } else {
+        const user = await User.create({
+          email,
+          password,
+          name,
+        });
 
-    if (user) {
-      return user;
+        if (user) {
+          return user;
+        }
+      }
+    } catch (error) {
+      throw error;
     }
   }
 

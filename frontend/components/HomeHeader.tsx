@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
-import {  getUser } from "@/lib/actions/authRequest";
+import { getUser } from "@/lib/actions/authRequest";
 import { User } from "@/types/User";
 
 const publicheaderroutes = ["Timeline", "About", "Projects", "Media"];
@@ -38,8 +38,9 @@ const HomeHeader = () => {
       try {
         execwind();
         const userEff = authStore.getState().user;
-        const response = await getUser(params.id , userEff.token);
+        const response = await getUser(params.id, userEff.token);
         setUserdata(response?.data);
+        console.log(userdata);
       } catch (error) {
         console.error(error);
       }

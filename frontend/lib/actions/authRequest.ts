@@ -110,7 +110,6 @@ export const onBoardUser = async (payload: any, token: string) => {
 
 export const getUser = async (id: string | string[], token: string) => {
   try {
-    console.log(token);
     const response = await axios
       .get(`${baseurl}user/${id}`, {
         headers: {
@@ -121,7 +120,7 @@ export const getUser = async (id: string | string[], token: string) => {
       .catch((err) => {
         throw err;
       });
-    console.log(response?.data);
+
     return response?.data;
   } catch (error) {
     throw error;
