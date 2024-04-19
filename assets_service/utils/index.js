@@ -1,4 +1,5 @@
-
+const amqplib = require("amqplib");
+const { EXCHANGE_NAME, MESSAGE_BROKER_URL, QUEUE_NAME } = require("../config");
 
 module.exports.HandleError = require("./error-handler");
 
@@ -9,9 +10,11 @@ module.exports.CustomError = require("./app-errors");
 // create a channel
 module.exports.CreateChannel = async () => {
   try {
-    const connection = await amqplib.connect(Message_Broker_Uri);
+    const connection = await amqplib.connect(MESSAGE_BROKER_URL);
     const channel = await connection.createChannel();
     await channel.assertExchange(EXCHANGE_NAME, "direct", false);
+    console.log("connected");
+    return channel;
   } catch (error) {
     throw error;
   }
@@ -29,7 +32,7 @@ module.exports.PublishMessage = async (channel, binding_key, message) => {
 
 // subscribe message
 
-module.exports.SuscribeMessage = async (channel, service, binding_key) => {
+module.exports.SubcribeMessage = async (channel, service, binding_key) => {
   const appQueue = await channel.assertQueue(QUEUE_NAME);
 
   channel.bindQueue(appQueue.queue, EXCHANGE_NAME, binding_key);
@@ -40,5 +43,3 @@ module.exports.SuscribeMessage = async (channel, service, binding_key) => {
     channel.ack(data);
   });
 };
-
-

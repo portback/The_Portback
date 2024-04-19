@@ -1,5 +1,3 @@
-module.exports = (app) => {
-
-
-    
+module.exports = {
+    post : require('./post')
 }

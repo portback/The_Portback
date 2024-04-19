@@ -1,8 +1,12 @@
+const { AssetService } = require("../services");
+const { SubcribeMessage } = require("../utils");
 const { uploader, cloudinary } = require("../utils/cloudinary");
 
+module.exports = (app, channel) => {
+  const service = new AssetService();
 
+  SubcribeMessage(channel, service);
 
-module.exports = (app) => {
   app.post("/image", async (req, res, next) => {
     try {
       const { image } = req.body;

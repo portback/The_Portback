@@ -1,9 +1,10 @@
 const cors = require("cors");
 const express = require("express");
+const { post } = require("./api");
 
 
-module.exports = (app) => {
+module.exports = (app , channel) => {
   app.use(cors());
   app.use(express.json());
-  assets(app);
+  post(app , channel);
 };

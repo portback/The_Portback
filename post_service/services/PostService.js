@@ -14,13 +14,20 @@ class PostService {
     console.log("deleted post");
   }
 
-  async FindPost(){
-    
-  }
+  async FindPost() {}
 
-  SubscribeEvents (payload){
+  SubscribeEvents(payload) {
+    const { data, event } = payload;
 
+    switch (event) {
+      case "ADD_COMMENT":
+        this.CreatePost();
+        break;
+
+      default:
+        break;
+    }
   }
 }
 
-module.epxorts = PostService;
+module.exports = PostService;
