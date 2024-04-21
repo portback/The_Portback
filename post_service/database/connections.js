@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { MONGO_URI } = require("../config");
 
-module.exports = async function datbaseConnection() {
+ async function datbaseConnection() {
   try {
     const connect = await mongoose.connect(MONGO_URI, {});
     console.log(
@@ -12,3 +12,6 @@ module.exports = async function datbaseConnection() {
     process.exit(1);
   }
 };
+
+
+module.exports = datbaseConnection;

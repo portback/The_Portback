@@ -1,5 +1,10 @@
 const amqplib = require("amqplib");
-const { EXCHANGE_NAME, MESSAGE_BROKER_URL, QUEUE_NAME } = require("../config");
+const {
+  EXCHANGE_NAME,
+  MESSAGE_BROKER_URL,
+  QUEUE_NAME,
+  ASSET_BINDING_KEY,
+} = require("../config");
 
 module.exports.HandleError = require("./error-handler");
 
@@ -32,14 +37,15 @@ module.exports.PublishMessage = async (channel, binding_key, message) => {
 
 // subscribe message
 
-module.exports.SubcribeMessage = async (channel, service, binding_key) => {
+module.exports.SubcribeMessage = async (channel, service) => {
   const appQueue = await channel.assertQueue(QUEUE_NAME);
 
-  channel.bindQueue(appQueue.queue, EXCHANGE_NAME, binding_key);
+  channel.bindQueue(appQueue.queue, EXCHANGE_NAME, ASSET_BINDING_KEY);
 
   channel.consume(appQueue.queue, (data) => {
     console.log("receieved data");
     console.log(data.content.toString());
+    // service.SubcribeMessage(data);
     channel.ack(data);
   });
 };

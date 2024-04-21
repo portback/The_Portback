@@ -1,5 +1,5 @@
 const amqplib = require("amqplib");
-const { EXCHANGE_NAME, MESSAGE_BROKER_URL } = require("../config");
+const { EXCHANGE_NAME, MESSAGE_BROKER_URL, QUEUE_NAME, POST_BINDING_KEY } = require("../config");
 
 module.exports.ValidateToken = (req) => {
   const token = req.header("x-auth-token");
@@ -24,9 +24,10 @@ module.exports.CreateChannel = async () => {
     const connection = await amqplib.connect(MESSAGE_BROKER_URL);
     const channel = await connection.createChannel();
     await channel.assertExchange(EXCHANGE_NAME, "direct", false);
+    console.log("connected");
     return channel;
   } catch (error) {
-    throw err;
+    throw error;
   }
 };
 
@@ -42,12 +43,12 @@ module.exports.PublishMessage = async (channel, binding_key, message) => {
 
 //subscribe message
 
-module.exports.SubscribeMessage = async (channel, service, binding_key) => {
-  const appQueue = await channel.assertQueue("QUEUE_NAME");
+module.exports.SubscribeMessage = async (channel, service) => {
+  const appQueue = await channel.assertQueue(QUEUE_NAME);
 
-  channel.bindQueue(appQueue.queue, EXCHANGE_NAME, binding_key);
+  channel.bindQueue(appQueue.queue, EXCHANGE_NAME, POST_BINDING_KEY);
 
-  channel.consue(appQueue.queue, (data) => {
+  channel.consue(appQueue.queue, (data) => {  
     console.log("recieved data");
 
     channel.ack(data);
