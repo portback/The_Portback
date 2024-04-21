@@ -55,10 +55,10 @@ module.exports = (app, channel) => {
     };
     try {
       const response = await RPCRequest(
-        POST_RPC_QUEUE,
+        POST_RPC_QUEUE,  
         channel,
-        JSON.stringify(payload)
-      );
+        JSON.stringify(payload) 
+      ); 
       res.send({
         done: "done",
         response: response,

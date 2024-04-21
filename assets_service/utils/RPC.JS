@@ -19,9 +19,10 @@ const RPCObserver = async (channel) => {
 
           const response = {}(await channel).sendToQueue(
             message.propeties.replyTo,
-            Buffer.from(JSON.stringify(response), {
+            Buffer.from(JSON.stringify(response)),
+            {
               correlationId: message.properties.correlationId,
-            })
+            }
           );
 
           channel.ack(message);
@@ -38,7 +39,6 @@ const RPCObserver = async (channel) => {
 
 async function RPCRequest(RPC_QUEUE_NAME, channel, payload) {
   const id = uuid();
-
   const q = await channel.assertQueue("", {
     exclusive: true,
   });

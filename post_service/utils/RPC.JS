@@ -15,14 +15,15 @@ const RPCObserver = async (channel) => {
     async (message) => {
       if (message.content) {
         const payload = JSON.parse(message.content.toString());
-        console.log(payload);
+        console.log(payload, message.properties.correlationId);
         const response = { response: "i saw ur yeye message" };
 
         await channel.sendToQueue(
           message.properties.replyTo,
-          Buffer.from(JSON.stringify(response), {
+          Buffer.from(JSON.stringify(response)),
+          {
             correlationId: message.properties.correlationId,
-          })
+          }
         );
 
         channel.ack(message);
