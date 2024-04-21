@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { FaHashtag, FaImage, FaUser, FaVideo } from "react-icons/fa";
+import Popover from "./Popover";
 
 type postType = "Status" | "Photos" | "Videos";
 
@@ -67,6 +68,12 @@ const CreatePost = () => {
           </div>
         </div>
       </div>
+
+      <Popover
+        toggle={() => setPostType("Status")}
+        visible={postType !== "Status"}
+        type="Image"
+      />
     </div>
   );
 };

@@ -10,6 +10,18 @@ module.exports.HandleError = require("./error-handler");
 
 module.exports.CustomError = require("./app-errors");
 
+module.exports.ValidateToken = (req) => {
+  const token = req.header("x-auth-token");
+  try {
+    const isValid = jwt.verify(token, "password");
+    req.user = isValid;
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}; 
+
 /* ================== message broker ================= */
 
 // create a channel

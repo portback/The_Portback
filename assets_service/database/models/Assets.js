@@ -11,6 +11,13 @@ const assetSchema = mongoose.Schema(
       enum: ["Video", "Image"],
       default: "Image",
     },
+    assetId: {
+      type: String,
+    },
+    userId: {
+      type: String,
+      requried: true,
+    },
   },
   { timestamps: true }
 );

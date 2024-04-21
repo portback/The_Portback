@@ -3,6 +3,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import CreatePost from "@/components/CreatePost";
+import Popover from "@/components/Popover";
 
 export default function HomeLayout({
   children,

@@ -2,16 +2,28 @@ const { CustomError } = require("../../utils");
 const Assets = require("../models/Assets");
 
 class AssetRepository {
-  async createAsset(url, mediaType) {
+  async createAsset(url, mediaType, assetId) {
     try {
       const newAsset = await Assets.create({
         url,
         mediaType,
+        assetId,
       });
 
       return newAsset;
     } catch (error) {
       throw new CustomError("error creating assets", 500);
+    }
+  }
+
+  async getUserAssets(userId) {
+    try {
+      const assets = await Assets.find({
+        userId,
+      });
+      return assets;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -34,7 +46,6 @@ class AssetRepository {
       throw new CustomError("error finding assets", 404);
     }
   }
-
 
   async deleteAsset(_id) {
     try {

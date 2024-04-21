@@ -1,3 +1,4 @@
+const { CustomError } = require(".");
 const {
   CLOUDINARY_NAME,
   CLOUDINARY_APIKEY,
@@ -19,38 +20,29 @@ const opts = {
 };
 
 const uploader = (file) => {
-  return new Promise((resolve, reject) => {
-    cloudinary.uploader.upload(
-      file,
-      { ...opts, folder: "/home/images" },
-      (error, result) => {
-        if (result && result.secure_url) {
-          console.log(result);
-          return resolve({
-            secure: result.secure_url,
-            assetId: result.asset_id,
-          });
+  try {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(
+        file,
+        { ...opts, folder: "/home/images" },
+        (error, result) => {
+          if (result && result.secure_url) {
+            console.log(result);
+            return resolve({
+              url: result.secure_url,
+              assetId: result.asset_id,
+            });
+          }
+          console.log(error.message);
+          reject("error has occured");
         }
-        console.log(error.message);
-        reject("error has occured");
-      }
-    );
-  });
+      );
+    });
+  } catch (error) {
+    throw error;
+  }
 };
 
-const uploadVideo = () => {
-  return new Promise((resolve, reject) => {
-    cloudinary.uploader.upload_stream(
-      { resource_type: "video" },
-      (error, result) => {
-        if (error) {
-          console.error("Error uploading to Cloudinary Server:", error);
-          return res.status(500).json({ error: "An error occurred" });
-          reject('An Error Occured')
-        }
-      }
-    );
-  });
-};
+
 
 module.exports = { cloudinary, uploader };

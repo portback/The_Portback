@@ -6,45 +6,35 @@ const { RPCObserver } = require("../utils/RPC.JS");
 const { uploader, cloudinary } = require("../utils/cloudinary");
 
 module.exports = (app, channel) => {
-  const service = new AssetService();
+  const assetservice = new AssetService();
 
-  SubcribeMessage(channel, service);
+  SubcribeMessage(channel, assetservice);
 
   RPCObserver(channel);
 
   app.post("/image", async (req, res, next) => {
     try {
-      const { image } = req.body;
+      const { image, userId } = req.body;
 
-      const response = await uploader(image);
+      const response = await assetservice.createAssets(image, "Image", userId);
+
+      res.status(201).send({ data: response, error: null });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   });
 
   app.post("/video", async (req, res, next) => {
+    const { userId } = req.body;
     try {
       if (!req.headers["content-type"].startsWith("multipart/form-data")) {
         return res.status(400).json({ error: "Invalid content type" });
       }
-
-      // Create a stream from the incoming request
-      const stream = cloudinary.uploader.upload_stream(
-        { resource_type: "video" },
-        (error, result) => {
-          if (error) {
-            console.error("Error uploading to Cloudinary:", error);
-            return res.status(500).json({ error: "An error occurred" });
-          }
-          res.json({ url: result.secure_url });
-        }
-      );
-
-      // Pipe the request stream to Cloudinary
-      req.pipe(stream);
+      const upload = await assetservice.createVideoAsset(req, userId);
+      console.log(upload);
+      res.status(200).send({ data: upload, error: null });
     } catch (err) {
-      console.error("Error uploading to Cloudinary:", err);
-      res.status(500).json({ error: "An error occurred" });
+      next(err);
     }
   });
 
@@ -55,10 +45,10 @@ module.exports = (app, channel) => {
     };
     try {
       const response = await RPCRequest(
-        POST_RPC_QUEUE,  
+        POST_RPC_QUEUE,
         channel,
-        JSON.stringify(payload) 
-      ); 
+        JSON.stringify(payload)
+      );
       res.send({
         done: "done",
         response: response,
